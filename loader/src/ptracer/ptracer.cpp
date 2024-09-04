@@ -16,12 +16,14 @@
 
 #include "utils.hpp"
 
-static void clearStackStringData(int pid, struct user_regs_struct& regs, const char *path) {
-    auto len = strlen(path) + 1;
+static void clear_static_string(int pid, struct user_regs_struct& regs, const char *path) {
+    unsigned int len = strlen(path) + 1;
     char empty[len];
     memset(empty, 0x1, len);
     empty[len] = '\0';
+
     regs.REG_SP += len;
+
     push_string(pid, regs, empty);
 }
 
@@ -157,7 +159,8 @@ bool inject_on_main(int pid, const char *lib_path) {
     args.push_back((long) RTLD_NOW);
 
     uintptr_t remote_handle = remote_call(pid, regs, (uintptr_t)dlopen_addr, (uintptr_t)libc_return_addr, args);
-    clearStackStringData(pid, regs, lib_path);
+    clear_static_string(pid, regs, lib_path);
+    
     LOGD("remote handle %p", (void *)remote_handle);
     if (remote_handle == 0) {
       LOGE("handle is null");
@@ -215,7 +218,8 @@ bool inject_on_main(int pid, const char *lib_path) {
     args.push_back((long) str);
 
     uintptr_t injector_entry = remote_call(pid, regs, (uintptr_t)dlsym_addr, (uintptr_t)libc_return_addr, args);
-    clearStackStringData(pid, regs, entry);
+    clear_static_string(pid, regs, entry);
+
     LOGD("injector entry %p", (void *)injector_entry);
     if (injector_entry == 0) {
       LOGE("injector entry is null");
@@ -232,7 +236,7 @@ bool inject_on_main(int pid, const char *lib_path) {
     args.push_back((long) str);
 
     remote_call(pid, regs, injector_entry, (uintptr_t)libc_return_addr, args);
-    clearStackStringData(pid, regs, tmp_path);
+    clear_static_string(pid, regs, tmp_path);
 
     /* reset pc to entry */
     backup.REG_IP = (long) entry_addr;
