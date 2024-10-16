@@ -27,7 +27,7 @@
         "unknown": "Unbekannt",
         "notWorking": "Funktioniert nicht",
         "ok": "Funktioniert",
-        "partially": "Funktioniert zum teil"
+        "partially": "Funktioniert zum Teil"
       },
       "info": {
         "version": "Version",
@@ -48,7 +48,7 @@
       "header": "Aktion",
       "daemonButton": {
         "start": "Start",
-        "stop": "Stop",
+        "stop": "Stopp",
         "pause": "Pause"
       },
       "monitor": {
@@ -73,7 +73,7 @@
       },
       "language": {
         "header": "Sprache auswählen",
-        "description": "Wechel zu deiner neuen Sprache"
+        "description": "Wechsel zu deiner neuen Sprache"
       },
       "logs": {
         "header": "Fehler Verlauf",
