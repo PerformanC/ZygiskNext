@@ -43,7 +43,7 @@ export async function getTranslations(locate) {
 
 /* INFO: This list is in alphabetical order. */
 export const avaliableLanguages = [
-  'de_DE',  /* INFO: Translated by @Blazzycrafter */
+  'de_DE', /* INFO: Translated by @Blazzycrafter */
   'en_US', /* INFO: Translated by @PerformanC (The PerformanC Organization) */
   'ja_JP', /* INFO: Translated by @Fyphen1223 */
   'pt_BR', /* INFO: Translated by @ThePedroo */
