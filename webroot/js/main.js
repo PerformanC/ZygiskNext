@@ -1,4 +1,5 @@
 import { fullScreen, exec, toast } from './kernelsu.js'
+
 import { setNewLanguage, getTranslations } from './language.js'
 
 export function setError(place, issue) {

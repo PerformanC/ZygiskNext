@@ -1,15 +1,16 @@
 import { 
-  avaliableLanguages, 
   getTranslations, 
-  setNewLanguage
+  setNewLanguage,
+  getAvailableLanguages
 } from '../language.js'
 import { smallPageDisabler } from '../smallPageDesabler.js'
 
 /* INFO: Initial setup */
 let index = 0
 
-function setAvaliableLanguage() {
-  const langKey = avaliableLanguages[index]
+async function setAvailableLanguage() {
+  const availableLanguages = await getAvailableLanguages()
+  const langKey = availableLanguages[index]
 
   index += 1
 
@@ -21,10 +22,10 @@ function setAvaliableLanguage() {
     `
   })
   .finally(() => { 
-    if (index !== avaliableLanguages.length) setAvaliableLanguage() 
+    if (index !== avaliableLanguages.length) setAvailableLanguage() 
   })
 }
-setAvaliableLanguage()
+setAvailableLanguage()
 
 /* INFO: Event setup */
 document.getElementById('lang_page_toggle').addEventListener('click', () => {

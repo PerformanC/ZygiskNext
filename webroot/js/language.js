@@ -1,3 +1,5 @@
+import { fullScreen, exec, toast } from './kernelsu.js'
+
 import { setError } from './main.js'
 import { translateActionPage } from './translate/action.js'
 import { translateHomePage } from './translate/home.js'
@@ -42,14 +44,16 @@ export async function getTranslations(locate) {
 }
 
 /* INFO: This list is in alphabetical order. */
-export const avaliableLanguages = [
-  'de_DE', /* INFO: Translated by @Blazzycrafter */
-  'en_US', /* INFO: Translated by @PerformanC (The PerformanC Organization) */
-  'ja_JP', /* INFO: Translated by @Fyphen1223 */
-  'pt_BR', /* INFO: Translated by @ThePedroo */
-  'ro_RO', /* INFO: Translated by @ExtremeXT */
-  'ru_RU', /* INFO: Translated by @Emulond & @AJleKcAHgP68 */
-  'vi_VN', /* INFO: Translated by @RainyXeon */
-  'zh_CN', /* INFO: Translated by @Meltartica & @SheepChef */
-  'zh_TW'  /* INFO: Translated by @Meltartica */
-]
+export async function getAvailableLanguages() {
+  const lsCmd = await exec('ls /data/adb/modules/zygisksu/webroot/lang')
+
+  if (lsCmd.errno !== 0) return setError('WebUI', lsCmd.stderr)
+
+  const languages = []
+  lsCmd.stdout.split('\n').forEach((lang) => {
+    if (lang.length !== 0)
+      languages.push(lang.replace('.json', ''))
+  })
+
+  return languages
+}
