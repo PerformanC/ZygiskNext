@@ -28,11 +28,14 @@ async function setAvailableLanguage() {
 setAvailableLanguage()
 
 /* INFO: Event setup */
+const navbar_data_tag = document.getElementById('cache-navbar-previous')
+const small_panel_data_tag = document.getElementById('cache-page-small-previous')
+
 document.getElementById('lang_page_toggle').addEventListener('click', () => {
-  const previous = !localStorage.getItem('/cache/navbar/previous') ? setData('home') : localStorage.getItem('/cache/navbar/previous')
+  const previous = !navbar_data_tag.getAttribute('content') ? setData('home', small_panel_data_tag) : navbar_data_tag.getAttribute('content')
   document.getElementById(`panel_${previous}`).classList.remove('show')
   document.getElementById('small_panel_language').classList.toggle('show')
-  localStorage.setItem('/cache/page/small/previous', 'language')
+  small_panel_data_tag.setAttribute('content', 'language')
 })
 
 document.getElementById('sp_lang_close').addEventListener('click', () => smallPageDisabler('language', 'settings'))
@@ -46,3 +49,9 @@ document.addEventListener('click', async (event) => {
 
   localStorage.setItem('/system/language', getLangLocate)
 }, false)
+
+function setData(data, tag) {
+  tag.setAttribute('content', data)
+
+  return data
+}

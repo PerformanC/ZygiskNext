@@ -1,4 +1,7 @@
-setData('home')
+const navbar_data_tag = document.getElementById('cache-navbar-previous')
+const small_panel_data_tag = document.getElementById('cache-page-small-previous')
+
+setData('home', navbar_data_tag)
 
 document.getElementById('panel_home').classList.toggle('show')
 document.getElementById(`nibg_home`).classList.toggle('show')
@@ -6,14 +9,17 @@ document.getElementById(`nibg_home`).classList.toggle('show')
 document.querySelectorAll('[name=navbutton]').forEach((element) => {
   element.addEventListener('click', (event) => {
     let smallPagePass = false
-    const value = event.target.value
-    const previous = !localStorage.getItem('/cache/navbar/previous') ? setData('home') : localStorage.getItem('/cache/navbar/previous')
 
-    const small_panel = localStorage.getItem('/cache/page/small/previous')
+    const value = event.target.value
+    const previous = !navbar_data_tag.getAttribute('content') 
+      ? setData('home', navbar_data_tag) 
+      : navbar_data_tag.getAttribute('content')
+
+    const small_panel = small_panel_data_tag.getAttribute('content')
 
     if (small_panel && small_panel.length !== 0) {
       document.getElementById(`small_panel_${small_panel}`).classList.remove('show')
-      localStorage.removeItem('/cache/page/small/previous')
+      small_panel_data_tag.removeAttribute('content')
       smallPagePass = true
     }
 
@@ -35,12 +41,12 @@ document.querySelectorAll('[name=navbutton]').forEach((element) => {
     curr_input.setAttribute('checked', '')
     i_background.classList.toggle('show')
 
-    setData(value)
+    setData(value, navbar_data_tag)
   })
 })
 
-function setData(data) {
-  localStorage.setItem('/cache/navbar/previous', data)
+function setData(data, tag) {
+  tag.setAttribute('content', data)
 
   return data
 }

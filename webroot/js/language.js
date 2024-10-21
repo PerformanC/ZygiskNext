@@ -43,7 +43,6 @@ export async function getTranslations(locate) {
   return translateData.json()
 }
 
-/* INFO: This list is in alphabetical order. */
 export async function getAvailableLanguages() {
   const lsCmd = await exec('ls /data/adb/modules/zygisksu/webroot/lang')
 

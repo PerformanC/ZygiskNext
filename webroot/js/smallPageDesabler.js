@@ -1,8 +1,11 @@
 export function smallPageDisabler(page_name, new_page) {
-  document.getElementById(`small_panel_${page_name}`).classList.remove('show')
-  localStorage.removeItem('/cache/page/small/previous')
+  const navbar_data_tag = document.getElementById('cache-navbar-previous')
+  const small_panel_data_tag = document.getElementById('cache-page-small-previous')
 
-  const previous = localStorage.getItem('/cache/navbar/previous')
+  document.getElementById(`small_panel_${page_name}`).classList.remove('show')
+  small_panel_data_tag.removeAttribute('content')
+
+  const previous = navbar_data_tag.getAttribute('content')
 
   /* INFO: Disable icon on old state */
   const pre_input = document.getElementById(`n_${previous}`)
@@ -19,5 +22,5 @@ export function smallPageDisabler(page_name, new_page) {
   curr_input.setAttribute('checked', '')
   i_background.classList.toggle('show')
 
-  localStorage.setItem('/cache/navbar/previous', 'settings')
+  navbar_data_tag.setAttribute('content', 'settings')
 }

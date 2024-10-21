@@ -29,6 +29,9 @@ if (!sys_theme) sys_theme = setData('dark')
 themeList[sys_theme](true)
 
 // INFO: Event logic
+const navbar_data_tag = document.getElementById('cache-navbar-previous')
+const small_panel_data_tag = document.getElementById('cache-page-small-previous')
+
 document.getElementById('sp_theme_close').addEventListener('click', () => smallPageDisabler('theme', 'settings'))
 
 document.addEventListener('click', async (event) => {
@@ -45,10 +48,10 @@ document.addEventListener('click', async (event) => {
 }, false)
 
 page_toggle.addEventListener('click', () => {
-  const previous = !localStorage.getItem('/cache/navbar/previous') ? setData('home') : localStorage.getItem('/cache/navbar/previous')
+  const previous = !navbar_data_tag.getAttribute('content') ? setTagData('home', small_panel_data_tag) : navbar_data_tag.getAttribute('content')
   document.getElementById(`panel_${previous}`).classList.remove('show')
   document.getElementById('small_panel_theme').classList.toggle('show')
-  localStorage.setItem('/cache/page/small/previous', 'theme')
+    small_panel_data_tag.setAttribute('content', 'theme')
 })
 
 window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
@@ -64,3 +67,9 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', eve
       break
   }
 });
+
+function setTagData(data, tag) {
+  tag.setAttribute('content', data)
+
+  return data
+}
