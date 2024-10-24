@@ -359,36 +359,32 @@ static void do_hook_zygote(JNIEnv *env) {
     vector<JNINativeMethod> hooks;
     const char *clz = "com/android/internal/os/Zygote";
 
-    // Hook nativeForkAndSpecialize methods
     hookJniNativeMethods(env, clz, nativeForkAndSpecialize_methods.data(), nativeForkAndSpecialize_methods.size());
     for (auto &method : nativeForkAndSpecialize_methods) {
         if (method.fnPtr) {
-            nativeForkAndSpecialize_orig = method.fnPtr; // Store original method pointer
-            hooks.emplace_back(method); // Add to hooks vector
+            nativeForkAndSpecialize_orig = method.fnPtr;
+            hooks.emplace_back(method);
             break;
         }
     }
 
-    // Hook nativeSpecializeAppProcess methods
     hookJniNativeMethods(env, clz, nativeSpecializeAppProcess_methods.data(), nativeSpecializeAppProcess_methods.size());
     for (auto &method : nativeSpecializeAppProcess_methods) {
         if (method.fnPtr) {
-            nativeSpecializeAppProcess_orig = method.fnPtr; // Store original method pointer
-            hooks.emplace_back(method); // Add to hooks vector
+            nativeSpecializeAppProcess_orig = method.fnPtr;
+            hooks.emplace_back(method);
             break;
         }
     }
 
-    // Hook nativeForkSystemServer methods
     hookJniNativeMethods(env, clz, nativeForkSystemServer_methods.data(), nativeForkSystemServer_methods.size());
     for (auto &method : nativeForkSystemServer_methods) {
         if (method.fnPtr) {
-            nativeForkSystemServer_orig = method.fnPtr; // Store original method pointer
-            hooks.emplace_back(method); // Add to hooks vector
+            nativeForkSystemServer_orig = method.fnPtr;
+            hooks.emplace_back(method);
             break;
         }
     }
 
-    // Store all hooks in a list for further use
     jni_hook_list->emplace(clz, std::move(hooks));
 }

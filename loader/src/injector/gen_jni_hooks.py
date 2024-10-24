@@ -77,6 +77,7 @@ jintArray = JArray(jint)
 jstring = JType('jstring', 'Ljava/lang/String;')
 jboolean = JType('jboolean', 'Z')
 jlong = JType('jlong', 'J')
+jlongArray = JArray(jlong)
 void = JType('void', 'V')
 
 class ForkAndSpec(JNIHook):
