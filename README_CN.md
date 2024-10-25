@@ -1,3 +1,5 @@
+[English version](https://github.com/R917C/ReZygisk/blob/main/README.md)
+
 # ReZygisk
 
 ReZygisk 从 ZygiskNext 分叉而来，是一个 Zygisk 的独立实现，为 KernelSU、Magisk（除内置外）和 APatch（测试阶段）提供 Zygisk API 支持。
