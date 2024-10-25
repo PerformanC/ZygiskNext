@@ -1,15 +1,15 @@
-[English version](https://github.com/R917C/ReZygisk/blob/main/README.md)
+[English version](https://github.com/PerformanC/ReZygisk/blob/main/README.md)
 
 # ReZygisk
 
 ReZygisk 从 ZygiskNext 分叉而来，是一个 Zygisk 的独立实现，为 KernelSU、Magisk（除内置外）和 APatch（测试阶段）提供 Zygisk API 支持。
 
-其目的是使用 C 语言更现代化的重写代码（从 C++ 和 Rust），从而更高效、更快速地实现 Zygisk API，并采用更宽松的开源许可证。
+其目的是使用 C 语言现代化的重写代码（从 C++ 和 Rust），从而更高效、更快速地实现 Zygisk API，并采用更宽松的开源许可证。
 
 > [!NOTE]
 > 此模块还在测试阶段；确保仅安装发布版本的 .zip。
 >
-> 虽然您可以从 [Actions](https://github.com/PerformanC/ReZygisk/actions) 页面安装 .zip，但是这是您的个人决定，因为您的设备可能会 Bootloop。
+> 虽然您可以从 [Actions](https://github.com/PerformanC/ReZygisk/actions) 页面安装 .zip，但是这是您的个人决定，因为您的设备可能会进入 Bootloop。
 
 ## 为什么？
 
@@ -75,8 +75,8 @@ ZygiskNext 的开发者们在安卓社区享有盛誉，也备受信任。但是
 
 ## 贡献
 
-必须遵守 PerformanC 的 [贡献指南](https://github.com/PerformanC/contributing) ，才能为 ReZygisk 做出贡献。遵循其安全政策、行为准则和语法标准。
+你必须遵守 PerformanC 的 [贡献指南](https://github.com/PerformanC/contributing) ，才能为 ReZygisk 做出贡献。请遵循其安全政策、行为准则和语法标准。
 
 ## 开源许可证
 
-ReZygisk 的 ZygiskNext 部分采用 GPL 许可证，但是重写的代码将采用 BSD 2-Clause 许可证。您可以在 [Open Source Initiative](https://opensource.org/licenses/BSD-2-Clause) 上了解更多信息。
+ReZygisk 的旧的 ZygiskNext 部分采用 GPL 许可证，但是重写的代码将采用 BSD 2-Clause 许可证。您可以在 [Open Source Initiative](https://opensource.org/licenses/BSD-2-Clause) 上了解更多信息。

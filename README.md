@@ -1,4 +1,4 @@
-[中文版本](https://github.com/R917C/ReZygisk/blob/main/README_CN.md)
+[中文版本](https://github.com/PerformanC/ReZygisk/blob/main/README_CN.md)
 
 # ReZygisk
 
