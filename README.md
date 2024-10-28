@@ -1,5 +1,7 @@
 # ReZygisk
 
+[中文](https://github.com/R917C/ReZygisk/blob/main/README_CN.md)
+
 ReZygisk is a fork of Zygisk Next, a standalone implementation of Zygisk, providing Zygisk API support for KernelSU, Magisk (besides built-in), and APatch (Work In Progress).
 
 It aims to modernize and re-write the codebase to C (from C++ and Rust), allowing a more efficient and faster implementation of the Zygisk API with a more permissive license.
