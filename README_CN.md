@@ -2,9 +2,9 @@
 
 [English](https://github.com/PerformanC/ReZygisk/blob/main/README.md)
 
-ReZygisk 是 Zygisk 的另一个独立实现，从 ZygiskNext 分叉而来，为 KernelSU、Magisk 和 APatch 提供 Zygisk API 支持(目前处于测试阶段)。
+ReZygisk 是 Zygisk 的另一个独立实现，从 Zygisk Next 分叉而来，为 KernelSU、Magisk 和 APatch 提供 Zygisk API 支持(目前处于测试阶段)。
 
-项目致力于使用 C 语言重写原本的 C++ 和 Rust 代码，以便更加现代、高效地实现 Zygisk API，并使用更宽松的开源许可证。
+项目致力于使用 C 语言重写原本的 C++ 和 Rust 代码，从而更加现代、高效地实现 Zygisk API，并使用更宽松的开源许可证。
 
 > [!NOTE]
 > 此模块还在测试阶段，请仅安装正式版本的压缩包。
@@ -15,7 +15,7 @@ ReZygisk 是 Zygisk 的另一个独立实现，从 ZygiskNext 分叉而来，为
 
 最新版本的 Zygisk Next 并不开源，仅其核心开发者有权查阅全部源代码。这不仅阻止了其他开发者贡献代码，还阻止了他们对项目代码进行审计。Zygisk Next 是一个以超级用户(root)权限运行的模块，可以访问整个系统，闭源后存在重大安全隐患。
 
-Zygisk Next 的开发者们在Android社区享有盛誉，备受信任。但这并不意味着他们的项目就一定没有任何恶意代码和漏洞。我们(PerformanC)理解他们出于某些原因不愿保持开源，但我们相信，开源是更好的选择。
+Zygisk Next 的开发者们在Android社区享有盛誉，备受信任。但这并不意味着他们的项目就一定没有任何恶意代码和漏洞。我们(PerformanC)理解他们出于某些原因不愿保持开源，但我们坚信，开源是更好的选择。
 
 ## 优点
 
@@ -60,7 +60,7 @@ Zygisk Next 的开发者们在Android社区享有盛誉，备受信任。但这�
 
 目前还没有发布正式版本 (敬请期待)
 
-## WebUI 翻译
+## 翻译
 
 您可以向 [add/webui](https://github.com/PerformanC/ReZygisk/tree/add/webui) 分支贡献翻译。
 
