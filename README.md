@@ -20,7 +20,6 @@ The Zygisk Next developers are famous and trusted in the Android community, howe
 ## Advantages
 
 - FOSS (Forever)
-- Better Standalone Hiding
 
 ## Dependencies
 
