@@ -211,10 +211,9 @@ server_l = ForkServer('l', [uid, gid, gids, runtime_flags, rlimits,
 server_samsung_q = ForkServer('samsung_q', [uid, gid, gids, runtime_flags, Anon(jint), Anon(jint), rlimits,
     permitted_capabilities, effective_capabilities])
 
+# GrapheneOS Android 14 Support
 server_grapheneos_u = ForkServer('grapheneos_u', [uid, gid, gids, runtime_flags, Anon(jint), Anon(jint), rlimits,
     permitted_capabilities, effective_capabilities])
-
-# GrapheneOS Android 14 Support
 
 fas_grapheneos_u = ForkAndSpec('grapheneos_u', [uid, gid, gids, runtime_flags, rlimits, mount_external,
     se_info, nice_name, fds_to_close, fds_to_ignore, is_child_zygote, instruction_set, app_data_dir, 
@@ -264,7 +263,7 @@ with open('jni_hooks.hpp', 'w') as f:
 
     methods = [spec_q, spec_q_alt, spec_r, spec_u, spec_samsung_q, spec_grapheneos_u]
     f.write(gen_jni_def(zygote, methods))
-            
+
     methods = [server_l, server_samsung_q, server_grapheneos_u]
     f.write(gen_jni_def(zygote, methods))
 
