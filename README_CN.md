@@ -84,4 +84,4 @@ Zygisk Next 的开发者们在Android社区享有盛誉，备受信任。但这�
 
 ReZygisk 项目中，旧的 Zygisk Next 部分采用 GPL 许可证，但由 PerformanC 组织重写的代码则采用 AGPL 3.0 许可证。
 
-你可以在 [Open Source Initiative](https://opensource.org/licenses/AGPL-3.0) 上阅读更多相关信息。
+您可以在 [Open Source Initiative](https://opensource.org/licenses/AGPL-3.0) 上阅读更多相关信息。
