@@ -2,7 +2,6 @@
 
 #include <sys/system_properties.h>
 #include <unistd.h>
-#include <map>
 #include <set>
 #include <sys/signalfd.h>
 #include <err.h>
@@ -103,8 +102,24 @@ struct EventLoop {
     }
 };
 
+enum TracingState {
+  TRACING = 1,
+  STOPPING,
+  STOPPED,
+  EXITING
+};
+
 TracingState tracing_state = TRACING;
 static char prop_path[PATH_MAX];
+
+struct Status {
+  bool supported = false;
+  bool zygote_injected = false;
+  bool daemon_running = false;
+  pid_t daemon_pid = -1;
+  char *daemon_info;
+  char *daemon_error_info;
+};
 
 Status status64;
 Status status32;
@@ -149,13 +164,10 @@ struct SocketHandler : public EventHandler {
     };
 
     while (1) {
-      std::vector<uint8_t> buf;
-      buf.resize(sizeof(MsgHead), 0);
-
-      MsgHead &msg = *((MsgHead *)buf.data());
+      struct MsgHead *msg = (struct MsgHead *)malloc(sizeof(struct MsgHead));
 
       ssize_t real_size;
-      ssize_t nread = recv(sock_fd_, &msg, sizeof(msg), MSG_PEEK);
+      ssize_t nread = recv(sock_fd_, msg, sizeof(struct MsgHead), MSG_PEEK);
       if (nread == -1) {
         if (errno == EAGAIN) break;
 
@@ -167,17 +179,17 @@ struct SocketHandler : public EventHandler {
         continue;
       }
 
-      if (msg.cmd >= Command::DAEMON64_SET_INFO && msg.cmd != Command::SYSTEM_SERVER_STARTED) {
+      if (msg->cmd >= Command::DAEMON64_SET_INFO && msg->cmd != Command::SYSTEM_SERVER_STARTED) {
         if (nread != sizeof(msg)) {
-          LOGE("cmd %d size %zu != %zu", msg.cmd, nread, sizeof(MsgHead));
+          LOGE("cmd %d size %zu != %zu", msg->cmd, nread, sizeof(MsgHead));
 
           continue;
         }
 
-        real_size = sizeof(MsgHead) + msg.length;
+        real_size = sizeof(MsgHead) + msg->length;
       } else {
         if (nread != sizeof(Command)) {
-          LOGE("cmd %d size %zu != %zu", msg.cmd, nread, sizeof(Command));
+          LOGE("cmd %d size %zu != %zu", msg->cmd, nread, sizeof(Command));
 
           continue;
         }
@@ -185,8 +197,8 @@ struct SocketHandler : public EventHandler {
         real_size = sizeof(Command);
       }
 
-      buf.resize(real_size);
-      nread = recv(sock_fd_, &msg, real_size, 0);
+      msg = (struct MsgHead *)realloc(msg, real_size);
+      nread = recv(sock_fd_, msg, real_size, 0);
 
       if (nread == -1) {
         if (errno == EAGAIN) break;
@@ -201,7 +213,7 @@ struct SocketHandler : public EventHandler {
         continue;
       }
 
-      switch (msg.cmd) {
+      switch (msg->cmd) {
         case START: {
           if (tracing_state == STOPPING) tracing_state = TRACING;
           else if (tracing_state == STOPPED) {
@@ -255,7 +267,7 @@ struct SocketHandler : public EventHandler {
           break;
         }
         case DAEMON64_SET_INFO: {
-          LOGD("received daemon64 info %s", msg.data);
+          LOGD("received daemon64 info %s", msg->data);
 
           /* Will only happen if somehow the daemon restarts */
           if (status64.daemon_info != NULL) {
@@ -263,32 +275,42 @@ struct SocketHandler : public EventHandler {
             status64.daemon_info = NULL;
           }
 
-          status64.daemon_info = (char *)malloc(msg.length);
-          memcpy(status64.daemon_info, msg.data, msg.length - 1);
-          status64.daemon_info[msg.length - 1] = '\0';
+          status64.daemon_info = (char *)malloc(msg->length);
+          if (status64.daemon_info == NULL) {
+            PLOGE("malloc daemon64 info");
+
+            break;
+          }
+
+          strcpy(status64.daemon_info, msg->data);
 
           updateStatus();
 
           break;
         }
         case DAEMON32_SET_INFO: {
-          LOGD("received daemon32 info %s", msg.data);
+          LOGD("received daemon32 info %s", msg->data);
 
           if (status32.daemon_info != NULL) {
             free(status32.daemon_info);
             status32.daemon_info = NULL;
           }
 
-          status32.daemon_info = (char *)malloc(msg.length);
-          memcpy(status32.daemon_info, msg.data, msg.length - 1);
-          status32.daemon_info[msg.length - 1] = '\0';
+          status32.daemon_info = (char *)malloc(msg->length);
+          if (status32.daemon_info == NULL) {
+            PLOGE("malloc daemon32 info");
+
+            break;
+          }
+
+          strcpy(status32.daemon_info, msg->data);
 
           updateStatus();
 
           break;
         }
         case DAEMON64_SET_ERROR_INFO: {
-          LOGD("received daemon64 error info %s", msg.data);
+          LOGD("received daemon64 error info %s", msg->data);
 
           status64.daemon_running = false;
 
@@ -297,16 +319,21 @@ struct SocketHandler : public EventHandler {
             status64.daemon_error_info = NULL;
           }
 
-          status64.daemon_error_info = (char *)malloc(msg.length);
-          memcpy(status64.daemon_error_info, msg.data, msg.length - 1);
-          status64.daemon_error_info[msg.length - 1] = '\0';
+          status64.daemon_error_info = (char *)malloc(msg->length);
+          if (status64.daemon_error_info == NULL) {
+            PLOGE("malloc daemon64 error info");
+
+            break;
+          }
+
+          strcpy(status64.daemon_error_info, msg->data);
 
           updateStatus();
 
           break;
         }
         case DAEMON32_SET_ERROR_INFO: {
-          LOGD("received daemon32 error info %s", msg.data);
+          LOGD("received daemon32 error info %s", msg->data);
 
           status32.daemon_running = false;
 
@@ -315,9 +342,14 @@ struct SocketHandler : public EventHandler {
             status32.daemon_error_info = NULL;
           }
           
-          status32.daemon_error_info = (char *)malloc(msg.length);
-          memcpy(status32.daemon_error_info, msg.data, msg.length - 1);
-          status32.daemon_error_info[msg.length - 1] = '\0';
+          status32.daemon_error_info = (char *)malloc(msg->length);
+          if (status32.daemon_error_info == NULL) {
+            PLOGE("malloc daemon32 error info");
+
+            break;
+          }
+
+          strcpy(status32.daemon_error_info, msg->data);
 
           updateStatus();
 
@@ -333,6 +365,8 @@ struct SocketHandler : public EventHandler {
           break;
         }
       }
+
+      free(msg);
     }
   }
 
@@ -403,19 +437,27 @@ static bool ensure_daemon_created(bool is_64bit) {
   }
 }
 
-#define CHECK_DAEMON_EXIT(abi)                                               \
-  if (status##abi.supported && pid == status64.daemon_pid) {                 \
-    char status_str[64];                                                     \
-    parse_status(status, status_str, sizeof(status_str));                    \
-                                                                             \
-    LOGW("daemon" #abi "pid %d exited: %s", pid, status_str);                \
-    status##abi.daemon_running = false;                                      \
-                                                                             \
-    if (status##abi.daemon_error_info[0] == '\0')                            \
-      memcpy(status##abi.daemon_error_info, status_str, strlen(status_str)); \
-                                                                             \
-    updateStatus();                                                          \
-    continue;                                                                \
+#define CHECK_DAEMON_EXIT(abi)                                                   \
+  if (status##abi.supported && pid == status64.daemon_pid) {                     \
+    char status_str[64];                                                         \
+    parse_status(status, status_str, sizeof(status_str));                        \
+                                                                                 \
+    LOGW("daemon" #abi " pid %d exited: %s", pid, status_str);                   \
+    status##abi.daemon_running = false;                                          \
+                                                                                 \
+    if (!status##abi.daemon_error_info) {                                        \
+      status##abi.daemon_error_info = (char *)malloc(strlen(status_str) + 1);    \
+      if (status##abi.daemon_error_info) {                                       \
+        LOGE("malloc daemon" #abi " error info failed");                         \
+                                                                                 \
+        return;                                                                  \
+      }                                                                          \
+                                                                                 \
+      memcpy(status##abi.daemon_error_info, status_str, strlen(status_str) + 1); \
+    }                                                                            \
+                                                                                 \
+    updateStatus();                                                              \
+    continue;                                                                    \
   }
 
 #define PRE_INJECT(abi, is_64)                                                         \
@@ -641,14 +683,14 @@ static char post_section[1024];
 
 #define WRITE_STATUS_ABI(suffix)                                                     \
   if (status ## suffix.supported) {                                                  \
-    strcat(status_text, " zygote" # suffix ":");                                     \
+    strcat(status_text, " zygote" # suffix ": ");                                    \
     if (tracing_state != TRACING) strcat(status_text, "❓ unknown, ");               \
     else if (status ## suffix.zygote_injected) strcat(status_text, "😋 injected, "); \
     else strcat(status_text, "❌ not injected, ");                                   \
                                                                                      \
-    strcat(status_text, " daemon" # suffix ":");                                     \
+    strcat(status_text, "daemon" # suffix ": ");                                     \
     if (status ## suffix.daemon_running) {                                           \
-      strcat(status_text, "😋running");                                              \
+      strcat(status_text, "😋 running ");                                            \
                                                                                      \
       if (status ## suffix.daemon_info != NULL) {                                    \
         strcat(status_text, "(");                                                    \
@@ -690,7 +732,7 @@ static void updateStatus() {
   }
 
   if (tracing_state != TRACING && monitor_stop_reason[0] != '\0') {
-    strcat(status_text, "(");
+    strcat(status_text, " (");
     strcat(status_text, monitor_stop_reason);
     strcat(status_text, ")");
   }
@@ -717,68 +759,26 @@ static bool prepare_environment() {
     return false;
   }
 
-  const char field_name[] = "description=";
+  bool after_description = false;
 
-  int pre_section_len = 0;
-  int post_section_len = 0;
+  char line[1024];
+  while (fgets(line, sizeof(line), orig_prop) != NULL) {
+    if (strncmp(line, "description=", strlen("description=")) == 0) {
+      strcat(pre_section, "description=");
+      strcat(post_section, line + strlen("description="));
+      after_description = true;
 
-  /* TODO: improve this code */
-  int i = 1;
-  while (1) {
-    int int_char = fgetc(orig_prop);
-    if (int_char == EOF) break;
-
-    pre_section[pre_section_len] = (char)int_char;
-    pre_section[pre_section_len + 1] = '\0';
-    pre_section_len++;
-
-    if ((char)int_char != field_name[0]) continue;
-
-    while (1) {
-      int int_char2 = fgetc(orig_prop);
-      if (int_char2 == EOF) break;
-
-      if ((char)int_char2 == field_name[i]) {
-        i++;
-
-        if (i == (int)(sizeof(field_name) - 1)) {
-          pre_section[pre_section_len] = (char)int_char2;
-          pre_section[pre_section_len + 1] = '\0';
-          pre_section_len++;
-      
-          while (1) {
-            int int_char3 = fgetc(orig_prop);
-            if (int_char3 == EOF) break;
-
-            post_section[post_section_len] = (char)int_char3;
-            post_section[post_section_len + 1] = '\0';
-            post_section_len++;
-
-            i++;
-          }
-
-          break;
-        } else {
-          pre_section[pre_section_len] = (char)int_char2;
-          pre_section[pre_section_len + 1] = '\0';
-          pre_section_len++;
-
-          continue;
-        }
-      } else {
-        pre_section[pre_section_len] = (char)int_char2;
-        pre_section[pre_section_len + 1] = '\0';
-        pre_section_len++;
-
-        i = 1;
-
-        break;
-      }
+      continue;
     }
+
+    if (after_description) strcat(post_section, line);
+    else strcat(pre_section, line);
   }
 
   fclose(orig_prop);
 
+  /* TODO: See if ZYGISK_ENABLED flag is already set,
+             if so, set a status saying to disable built-in Zygisk. */
   updateStatus();
 
   return true;
@@ -786,7 +786,6 @@ static bool prepare_environment() {
 
 void init_monitor() {
   LOGI("ReZygisk %s", ZKSU_VERSION);
-  LOGI("init monitor started");
 
   if (!prepare_environment()) exit(1);
 

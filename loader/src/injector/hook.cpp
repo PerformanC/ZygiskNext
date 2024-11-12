@@ -184,7 +184,7 @@ DCL_HOOK_FUNC(int, pthread_attr_destroy, void *target) {
     if (gettid() != getpid())
         return res;
 
-    LOGV("pthread_attr_destroy\n");
+    LOGV("pthread_attr_destroy");
     if (should_unmap_zygisk) {
         unhook_functions();
         if (should_unmap_zygisk) {
@@ -202,7 +202,7 @@ void initialize_jni_hook();
 
 DCL_HOOK_FUNC(char *, strdup, const char *s) {
   if (strcmp(s, "com.android.internal.os.ZygoteInit") == 0) {
-      LOGV("strdup %s\n", s);
+      LOGV("strdup %s", s);
       initialize_jni_hook();
     }
 
@@ -271,7 +271,7 @@ void initialize_jni_hook() {
             if (!map.path.ends_with("/libnativehelper.so")) continue;
             void *h = dlopen(map.path.data(), RTLD_LAZY);
             if (!h) {
-                LOGW("cannot dlopen libnativehelper.so: %s\n", dlerror());
+                LOGW("cannot dlopen libnativehelper.so: %s", dlerror());
                 break;
             }
             get_created_java_vms = reinterpret_cast<decltype(get_created_java_vms)>(dlsym(h, "JNI_GetCreatedJavaVMs"));
@@ -279,7 +279,7 @@ void initialize_jni_hook() {
             break;
         }
         if (!get_created_java_vms) {
-            LOGW("JNI_GetCreatedJavaVMs not found\n");
+            LOGW("JNI_GetCreatedJavaVMs not found");
             return;
         }
     }
@@ -585,7 +585,7 @@ void ZygiskContext::run_modules_post() {
     // Remove from SoList to avoid detection
     bool solist_res = SoList::Initialize();
     if (!solist_res) {
-        LOGE("Failed to initialize SoList\n");
+        LOGE("Failed to initialize SoList");
     } else {
         SoList::NullifySoName("jit-cache");
     }
@@ -599,7 +599,7 @@ void ZygiskContext::run_modules_post() {
             // MAP_SHARED should fix the suspicious mapping.
             void *copy = mmap(nullptr, size, PROT_WRITE, MAP_ANONYMOUS | MAP_SHARED, -1, 0);
             if (copy == MAP_FAILED) {
-                LOGE("Failed to mmap jit-cache-zygisk\n");
+                LOGE("Failed to mmap jit-cache-zygisk");
                 continue;
             }
 
@@ -674,7 +674,7 @@ void ZygiskContext::app_specialize_pre() {
     }
 
     if ((info_flags & (PROCESS_IS_MANAGER | PROCESS_ROOT_IS_MAGISK)) == (PROCESS_IS_MANAGER | PROCESS_ROOT_IS_MAGISK)) {
-        LOGI("Manager process detected. Notifying that Zygisk has been enabled.\n");
+        LOGI("Manager process detected. Notifying that Zygisk has been enabled.");
 
         setenv("ZYGISK_ENABLED", "1", 1);
     } else {
@@ -705,20 +705,20 @@ bool ZygiskContext::exempt_fd(int fd) {
 
 void ZygiskContext::nativeSpecializeAppProcess_pre() {
     process = env->GetStringUTFChars(args.app->nice_name, nullptr);
-    LOGV("pre  specialize [%s]\n", process);
+    LOGV("pre specialize [%s]", process);
     // App specialize does not check FD
     flags[SKIP_FD_SANITIZATION] = true;
     app_specialize_pre();
 }
 
 void ZygiskContext::nativeSpecializeAppProcess_post() {
-    LOGV("post specialize [%s]\n", process);
+    LOGV("post specialize [%s]", process);
     app_specialize_post();
 }
 
 /* Zygisksu changed: No system_server status write back */
 void ZygiskContext::nativeForkSystemServer_pre() {
-    LOGV("pre  forkSystemServer\n");
+    LOGV("pre forkSystemServer");
     flags[SERVER_FORK_AND_SPECIALIZE] = true;
 
     fork_pre();
@@ -733,7 +733,7 @@ void ZygiskContext::nativeForkSystemServer_pre() {
 
 void ZygiskContext::nativeForkSystemServer_post() {
     if (pid == 0) {
-        LOGV("post forkSystemServer\n");
+        LOGV("post forkSystemServer");
         run_modules_post();
     }
     fork_post();
@@ -741,7 +741,7 @@ void ZygiskContext::nativeForkSystemServer_post() {
 
 void ZygiskContext::nativeForkAndSpecialize_pre() {
     process = env->GetStringUTFChars(args.app->nice_name, nullptr);
-    LOGV("pre  forkAndSpecialize [%s]\n", process);
+    LOGV("pre forkAndSpecialize [%s]", process);
 
     flags[APP_FORK_AND_SPECIALIZE] = true;
     /* Zygisksu changed: No args.app->fds_to_ignore check since we are Android 10+ */
@@ -758,7 +758,7 @@ void ZygiskContext::nativeForkAndSpecialize_pre() {
 
 void ZygiskContext::nativeForkAndSpecialize_post() {
     if (pid == 0) {
-        LOGV("post forkAndSpecialize [%s]\n", process);
+        LOGV("post forkAndSpecialize [%s]", process);
         app_specialize_post();
     }
     fork_post();
@@ -780,7 +780,7 @@ ZygiskContext::~ZygiskContext() {
         if (!methods.empty() && env->RegisterNatives(
                 env->FindClass(clz.data()), methods.data(),
                 static_cast<int>(methods.size())) != 0) {
-            LOGE("Failed to restore JNI hook of class [%s]\n", clz.data());
+            LOGE("Failed to restore JNI hook of class [%s]", clz.data());
             should_unmap_zygisk = false;
         }
     }
@@ -801,14 +801,14 @@ static bool hook_commit() {
     if (lsplt::CommitHook()) {
         return true;
     } else {
-        LOGE("plt_hook failed\n");
+        LOGE("plt_hook failed");
         return false;
     }
 }
 
 static void hook_register(dev_t dev, ino_t inode, const char *symbol, void *new_func, void **old_func) {
     if (!lsplt::RegisterHook(dev, inode, symbol, new_func, old_func)) {
-        LOGE("Failed to register plt_hook \"%s\"\n", symbol);
+        LOGE("Failed to register plt_hook \"%s\"", symbol);
         return;
     }
     plt_hook_list->emplace_back(dev, inode, symbol, old_func);
@@ -872,12 +872,12 @@ static void unhook_functions() {
     // Unhook plt_hook
     for (const auto &[dev, inode, sym, old_func] : *plt_hook_list) {
         if (!lsplt::RegisterHook(dev, inode, sym, *old_func, nullptr)) {
-            LOGE("Failed to register plt_hook [%s]\n", sym);
+            LOGE("Failed to register plt_hook [%s]", sym);
         }
     }
     delete plt_hook_list;
     if (!hook_commit()) {
-        LOGE("Failed to restore plt_hook\n");
+        LOGE("Failed to restore plt_hook");
         should_unmap_zygisk = false;
     }
 }

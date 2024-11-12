@@ -1,5 +1,7 @@
 # ReZygisk
 
+[中文](https://github.com/PerformanC/ReZygisk/blob/main/README_CN.md)
+
 ReZygisk is a fork of Zygisk Next, a standalone implementation of Zygisk, providing Zygisk API support for KernelSU, Magisk (besides built-in), and APatch (Work In Progress).
 
 It aims to modernize and re-write the codebase to C (from C++ and Rust), allowing a more efficient and faster implementation of the Zygisk API with a more permissive license.
@@ -18,7 +20,6 @@ The Zygisk Next developers are famous and trusted in the Android community, howe
 ## Advantages
 
 - FOSS (Forever)
-- Better Standalone Hiding
 
 ## Dependencies
 
@@ -76,4 +77,4 @@ It is mandatory to follow PerformanC's [Contribution Guidelines](https://github.
 
 ## License
 
-ReZygisk is licensed majority under GPL, by Dr-TSNG, but also by BSD 2-Clause License for re-written code. You can read more about it on [Open Source Initiative](https://opensource.org/licenses/BSD-2-Clause).
+ReZygisk is licensed majoritaly under GPL, by Dr-TSNG, but also AGPL 3.0, by The PerformanC Organization, for re-written code. You can read more about it on [Open Source Initiative](https://opensource.org/licenses/AGPL-3.0).

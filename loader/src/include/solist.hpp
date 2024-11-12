@@ -62,7 +62,7 @@ namespace SoList
         for (auto *iter = solist; iter; iter = iter->get_next()) {
             if (iter->get_name() && iter->get_path() && strstr(iter->get_path(), target_name)) {
                 iter->nullify_path();
-                LOGI("Cleared SOList entry for %s\n", target_name);
+                LOGI("Cleared SOList entry for %s", target_name);
             }
         }
 

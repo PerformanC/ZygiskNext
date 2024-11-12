@@ -82,39 +82,6 @@ int main(int argc, char **argv) {
       }
     }
 
-    #ifdef __LP64__
-      printf("Daemon64 running: %d\n", status64.daemon_running);
-      printf("Zygote64 injected: %s\n", status64.zygote_injected ? "yes" : "no");
-    #else
-      printf("Daemon32 running: %s\n", status32.daemon_running ? "yes" : "no");
-      printf("Zygote32 injected: %s\n", status32.zygote_injected ? "yes" : "no");
-    #endif
-
-    switch (tracing_state) {
-      case TRACING: {
-        printf("Tracing state: TRACING\n");
-
-        break;
-      }
-      case STOPPING: {
-        printf("Tracing state: STOPPING\n");
-        printf("Stop reason: %s\n", monitor_stop_reason);
-
-        break;
-      }
-      case STOPPED: {
-        printf("Tracing state: STOPPED\n");
-        printf("Stop reason: %s\n", monitor_stop_reason);
-
-        break;
-      }
-      case EXITING: {
-        printf("Tracing state: EXITING\n");
-
-        break;
-      }
-    }
-
     if (info.modules->modules_count != 0) {
       printf("Modules: %zu\n", info.modules->modules_count);
 
