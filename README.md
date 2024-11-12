@@ -25,26 +25,7 @@ The Zygisk Next developers are famous and trusted in the Android community, howe
 
 | Tool            | Description                            |
 |-----------------|----------------------------------------|
-| `rustc`         | The Rust compiler                      |
 | `Android NDK`   | Native Development Kit for Android     |
-
-### Rust Dependencies
-
-| Dependency       | Description                                                   |
-|------------------|---------------------------------------------------------------|
-| `android_logger` | Logger for Android platform                                   |
-| `anyhow`         | Error handling library                                        |
-| `bitflags`       | Macro to generate structures for bitwise operations           |
-| `const_format`   | Compile-time string formatting                                |
-| `futures`        | Abstractions for asynchronous programming                     |
-| `konst`          | Compile-time constant evaluation                              |
-| `lazy_static`    | Macro for declaring lazily evaluated static variables         |
-| `libc`           | FFI bindings to native C libraries                            |
-| `log`            | Logging facade                                                |
-| `memfd`          | Memory file descriptor utilities                              |
-| `num_enum`       | Derive macros to convert between numbers and enums            |
-| `passfd`         | Passing file descriptors over Unix sockets                    |
-| `proc-maps`      | Parse and analyze process memory maps                         |
 
 ### C++ Dependencies
 
