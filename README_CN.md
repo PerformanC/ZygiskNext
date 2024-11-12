@@ -43,7 +43,7 @@ Zygisk Next 的开发者们在Android社区享有盛誉，备受信任。但这�
 
 ## 翻译
 
-您可以向 [add/webui](https://github.com/PerformanC/ReZygisk/tree/add/webui) 分支贡献翻译。
+您可以向 [add/new-webui](https://github.com/PerformanC/ReZygisk/tree/add/new-webui) 分支贡献翻译。
 
 请不要忘记在 [TRANSLATOR.md](https://github.com/PerformanC/ReZygisk/blob/add/new-webui/TRANSLATOR.md) 中添加您的 GitHub 账号信息，以便人们看到您的贡献。
 
