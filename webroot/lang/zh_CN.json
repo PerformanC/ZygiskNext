@@ -11,12 +11,12 @@
       "header": "选择主题风格",
       "dark": "暗色",
       "light": "浅色",
-      "system": "跟随系统设置"
+      "system": "跟随系统"
     },
     "errorh": {
       "buttons": {
-        "copy": "COPY",
-        "clear": "CLEAR ALL LOGS"
+        "copy": "复制",
+        "clear": "清空日志"
       },
       "header": "错误日志",
       "placeholder": "暂时没有错误日志"
@@ -36,7 +36,7 @@
         "root": "Root实现",
         "zygote": {
           "injected": "已注入",
-          "notInjected": "注入失败",
+          "notInjected": "未注入",
           "unknown": "未知"
         }
       }
@@ -66,8 +66,8 @@
     "settings": {
       "header": "设置",
       "font": {
-        "header": "使用系统字体",
-        "description": "此选项将在此应用中启用系统字体。可能与FlipFont不兼容。"
+        "header": "设置",
+        "description": "此选项会在Web界面启用系统字体。可能与FlipFont不兼容。"
       },
       "theme": {
         "header": "主题",
@@ -79,7 +79,7 @@
       },
       "logs": {
         "header": "错误日志",
-        "description": "浏览记录下来的所有错误日志"
+        "description": "浏览所有错误日志"
       },
       "credits": {
         "module": "模块开发者",
