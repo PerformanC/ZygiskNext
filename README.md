@@ -43,7 +43,7 @@ There are currently no available stable releases. (Coming Soon)
 
 ## Translation
 
-As of now, we don't have integration with another platform for translations but you may contribute to the [add/webui](https://github.com/PerformanC/ReZygisk/tree/add/webui) branch. Please don't forget to include your GitHub profile in [TRANSLATOR.md](https://github.com/PerformanC/ReZygisk/blob/add/new-webui/TRANSLATOR.md) so that people can see your contribution.
+As of now, we don't have integration with another platform for translations but you may contribute to the [add/new-webui](https://github.com/PerformanC/ReZygisk/tree/add/new-webui) branch. Please don't forget to include your GitHub profile in [TRANSLATOR.md](https://github.com/PerformanC/ReZygisk/blob/add/new-webui/TRANSLATOR.md) so that people can see your contribution.
 
 ## Support
 For any question related to ReZygisk or other PerformanC projects, feel free to join any of the following channels below:
