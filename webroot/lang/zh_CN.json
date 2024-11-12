@@ -66,7 +66,7 @@
     "settings": {
       "header": "设置",
       "font": {
-        "header": "设置",
+        "header": "启用系统字体",
         "description": "此选项会在Web界面启用系统字体。可能与FlipFont不兼容。"
       },
       "theme": {
