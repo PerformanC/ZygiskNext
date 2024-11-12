@@ -5,96 +5,96 @@
   },
   "modal": {
     "logs": {
-      "header": "Error History",
-      "placeholder": "No error log recorded here!"
+      "header": "錯誤記錄",
+      "placeholder": "此處無錯誤記錄！"
     }
   },
   "smallPage": {
     "language": {
-      "header": "選擇你的語言"
+      "header": "選擇語言"
     },
     "theme": {
-      "header": "Choose your new theme",
-      "dark": "Dark",
-      "light": "Light",
-      "system": "System Based"
+      "header": "選擇新主題",
+      "dark": "深色",
+      "light": "淺色",
+      "system": "依系統設定"
     },
     "errorh": {
       "buttons": {
-        "copy": "COPY",
-        "clear": "CLEAR ALL LOGS"
+        "copy": "複製",
+        "clear": "清除所有日誌"
       },
-      "header": "Error History",
-      "placeholder": "No error log recorded here!"
+      "header": "錯誤記錄",
+      "placeholder": "此處無錯誤記錄！"
     }
   },
   "page": {
     "home": {
-      "header": "Home",
+      "header": "首頁",
       "status": {
-        "unknown": "Unknown",
-        "notWorking": "Not Working",
-        "ok": "Working",
-        "partially": "Partially Working"
+        "unknown": "未知",
+        "notWorking": "未運作",
+        "ok": "運作中",
+        "partially": "部分運作"
       },
       "info": {
         "version": "版本",
         "root": "Root實現",
         "zygote": {
-          "injected": "已註入",
+          "injected": "已注入",
           "notInjected": "注入失敗",
           "unknown": "未知"
         }
       }
     },
     "modules": {
-      "header": "模塊",
-      "notAvaliable": "No modules using Zygisk here.",
+      "header": "模組",
+      "notAvaliable": "此處無使用 Zygisk 的模組。",
       "arch": "架構: "
     },
     "action": {
-      "header": "Action",
+      "header": "操作",
       "daemonButton": {
         "start": "啟動",
         "stop": "停止",
-        "pause": "Pause"
+        "pause": "暫停"
       },
       "monitor": {
-        "32": "Monitor (32 bit)",
-        "64": "Monitor (64 bit)"
+        "32": "監控（32 位元）",
+        "64": "監控（64 位元）"
       },
       "status": {
-        "unknown": "Unknown",
-        "notWorking": "Not Working",
-        "ok": "Working"
+        "unknown": "未知",
+        "notWorking": "未運作",
+        "ok": "運作中"
       }
     },
     "settings": {
       "header": "設定",
       "font": {
-        "header": "Enable system font",
-        "description": "This option will enable system font in current WebUI. NOTE: May not be compatible with FlipFont"
+        "header": "啟用系統字型",
+        "description": "此選項將在當前 WebUI 中啟用系統字型。注意：可能不兼容 FlipFont。"
       },
       "theme": {
-        "header": "System theme",
-        "description": "Choose your system theme for current WebUI"
+        "header": "系統主題",
+        "description": "為當前 WebUI 選擇系統主題"
       },
       "language": {
-        "header": "Change language",
-        "description": "Change to your new language"
+        "header": "更改語言",
+        "description": "選擇新語言"
       },
       "logs": {
-        "header": "Error History",
-        "description": "View all of your error log"
+        "header": "錯誤記錄",
+        "description": "查看所有錯誤日誌"
       },
       "credits": {
-        "module": "Module Developer",
-        "original": "Original Module Developer",
-        "web": "WebUI Developer"
+        "module": "模組開發者",
+        "original": "原始模組開發者",
+        "web": "WebUI 開發者"
       },
       "license": {
-        "module": "Module License",
-        "web": "WebUI License"
+        "module": "模組授權條款",
+        "web": "WebUI 授權條款"
       }
     }
   }
