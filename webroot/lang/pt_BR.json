@@ -5,7 +5,7 @@
   },
   "smallPage": {
     "language": {
-      "header": "Escolha sua nova língua"
+      "header": "Escolha o seu novo idioma"
     },
     "theme": {
       "header": "Escolha o seu novo tema",
@@ -15,11 +15,11 @@
     },
     "errorh": {
       "buttons": {
-        "copy": "COPY",
-        "clear": "CLEAR ALL LOGS"
+        "copy": "COPIAR",
+        "clear": "LIMPAR TODOS OS REGISTROS"
       },
-      "header": "Histórico de erros",
-      "placeholder": "Nenhum erro foi salvo aqui!"
+      "header": "Histórico de Erros",
+      "placeholder": "Nenhum registro de erros aqui!"
     }
   },
   "page": {
@@ -33,7 +33,7 @@
       },
       "info": {
         "version": "Versão",
-        "root": "Implementação de root",
+        "root": "Implementação de Root",
         "zygote": {
           "injected": "Injetado",
           "notInjected": "Não Injetado",
@@ -46,21 +46,20 @@
       "notAvaliable": "Nenhum módulo está usando Zygisk aqui.",
       "arch": "Arquitetura: "
     },
-    "action": {
+    "actions": {
       "header": "Ações",
-      "daemonButton": {
+      "monitorButton": {
         "start": "Iniciar",
         "stop": "Parar",
         "pause": "Pausar"
       },
-      "monitor": {
-        "32": "Monitor (32 bit)",
-        "64": "Monitor (64 bit)"
-      },
+      "monitor": "Monitor",
       "status": {
-        "unknown": "Desconhecido",
-        "notWorking": "Não funcionando",
-        "ok": "Funcionando"
+        "tracing": "Rastreando",
+        "stopping": "Parando",
+        "stopped": "Parado",
+        "exiting": "Desligando",
+        "unknown": "Desconhecido"
       }
     },
     "settings": {
@@ -78,8 +77,8 @@
         "description": "Mude para sua nova língua"
       },
       "logs": {
-        "header": "Histórico de erros",
-        "description": "Veja o histórico de erros inteiro"
+        "header": "Histórico de Erros",
+        "description": "Ver o histórico de erros inteiro"
       },
       "credits": {
         "module": "Desenvolvedora do módulo",
@@ -87,7 +86,7 @@
         "web": "Desenvolvedor do WebUI"
       },
       "license": {
-        "module": "Licença do módulo",
+        "module": "Licença do Módulo",
         "web": "Licença do WebUI"
       }
     }

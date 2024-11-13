@@ -18,8 +18,8 @@
         "copy": "COPY",
         "clear": "CLEAR ALL LOGS"
       },
-      "header": "Jurnal erori",
-      "placeholder": "Nu a fost înregistrat niciun jurnal de erori aici!"
+      "header": "Error History",
+      "placeholder": "No error log recorded here!"
     }
   },
   "page": {
@@ -46,21 +46,20 @@
       "notAvaliable": "Nu există module care să folosească Zygisk.",
       "arch": "Arhitectură: "
     },
-    "action": {
+    "actions": {
       "header": "Acțiune",
-      "daemonButton": {
+      "monitorButton": {
         "start": "Pornire",
         "stop": "Oprire",
         "pause": "Pauză"
       },
-      "monitor": {
-        "32": "Monitorizare (32 bit)",
-        "64": "Monitorizare (64 bit)"
-      },
+      "monitor": "Monitorizare",
       "status": {
-        "unknown": "Necunoscut",
-        "notWorking": "Nu funcționează",
-        "ok": "Funcționează"
+        "tracing": "Tracing",
+        "stopping": "Stopping",
+        "stopped": "Stopped",
+        "exiting": "Exiting",
+        "unknown": "Unknown"
       }
     },
     "settings": {

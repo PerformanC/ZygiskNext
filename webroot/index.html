@@ -22,7 +22,7 @@
     <script src="js/smallPage/errorHistory.js" type="module"></script>
     <script src="js/restoreError.js" type="module"></script>
     <script src="js/navbar.js" type="module"></script>
-    <script src="js/daemonActions.js" type="module"></script>
+    <script src="js/monitorActions.js" type="module"></script>
     <script src="js/switcher/fontChanger.js" type="module"></script>
     <script src="js/main.js" type="module"></script>
   </head>
@@ -107,33 +107,18 @@
     <div id="panel_actions" class="panel">
       <div id="panel_actions_header" class="header">Actions</div>
       <div style="padding: 45px 0px;"></div>
-      <!-- INFO: Settings card body (Daemon32) -->
-      <div id="daemon32" class="dimc" style="display: block; margin: 0 15px 0 15px; border-radius: 20px;">
+      <!-- INFO: Settings card body (monitor) -->
+      <div id="monitor" class="dimc" style="display: block; margin: 0 15px 0 15px; border-radius: 20px;">
         <div class="dimc liste" style="padding: 30px 22px 30px; border-radius: 20px;">
-          <div id="daemon32_title" class="dimc" style="font-size: 1.22em;">Monitor (32 bit)</div>
-          <div id="daemon32_status" class="dimc" style="font-size: 1.1em;">Unknown</div>
+          <div id="monitor_title" class="dimc" style="font-size: 1.22em;">Monitor</div>
+          <div id="monitor_status" class="dimc" style="font-size: 1.1em;">Unknown</div>
         </div>
 
         <div class="small_card_bg" style="padding: 25px 20px 25px 20px; border-radius: 20px;">
           <div class="small_card_bg button_list">
-            <div id="daemon32_stop_button" class="center button">Stop</div>
-            <div id="daemon32_start_button" class="center button">Start</div>
-            <div id="daemon32_pause_button" class="center button">Pause</div>
-          </div>
-        </div>
-      </div>
-      <!-- INFO: Settings card body (Daemon64) -->
-      <div id="daemon64" class="dimc" style="display: block; margin: 15px 15px 0 15px; border-radius: 20px;">
-        <div class="dimc liste" style="padding: 30px 22px 30px; border-radius: 20px;">
-          <div id="daemon64_title" class="dimc" style="font-size: 1.22em;">Monitor (64 bit)</div>
-          <div id="daemon64_status" class="dimc" style="font-size: 1.1em;">Unknown</div>
-        </div>
-
-        <div class="small_card_bg" style="padding: 25px 20px 25px 20px; border-radius: 20px;">
-          <div class="small_card_bg button_list">
-            <div id="daemon64_stop_button" class="center button">Stop</div>
-            <div id="daemon64_start_button" class="center button">Start</div>
-            <div id="daemon64_pause_button" class="center button">Pause</div>
+            <div id="monitor_stop_button" class="center button">Stop</div>
+            <div id="monitor_start_button" class="center button">Start</div>
+            <div id="monitor_pause_button" class="center button">Pause</div>
           </div>
         </div>
       </div>

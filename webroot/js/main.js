@@ -49,8 +49,7 @@ export function setErrorData(errorLog) {
   const zygote64_div = document.getElementById('zygote64')
   const zygote32_div = document.getElementById('zygote32')
 
-  const daemon64_div = document.getElementById('daemon64')
-  const daemon32_div = document.getElementById('daemon32')
+  const monitor_status = document.getElementById('monitor_status')
 
   const zygote32_status_div = document.getElementById('zygote32_status')
   const zygote64_status_div = document.getElementById('zygote64_status')
@@ -61,17 +60,41 @@ export function setErrorData(errorLog) {
   let zygote64_status = EXPECTED
   let zygote32_status = EXPECTED
 
+  const lscpuCmd = await exec('/system/bin/getprop ro.product.cpu.abilist')
+  if (lscpuCmd.errno !== 0) return setError('WebUI', lscpuCmd.stderr)
+
+  const has64BitSupport = lscpuCmd.stdout.includes('arm64-v8a') || lscpuCmd.stdout.includes('x86_64')
+  const has32BitSupport = lscpuCmd.stdout.includes('armeabi-v7a') || lscpuCmd.stdout.includes('armeabi') || lscpuCmd.stdout.includes('x86')
+
+  if (!has64BitSupport) {
+    zygote64_div.style.display = 'none'
+  }
+
+  if (!has32BitSupport) {
+    zygote32_div.style.display = 'none'
+  }
+
   const catCmd = await exec('/system/bin/cat /data/adb/rezygisk/status')
 
   if (catCmd.errno === 0) {
     const [ Version, Tracing, Daemon64, Zygote64 ] = catCmd.stdout.split('\n')
-    /* TODO: Show the tracing state */
+    let hasOffset = false
     /* TODO: Show if daemon is running */
 
     code_version.innerHTML = Version.split(': ')[1]
 
-    if (Daemon64 && Daemon64.startsWith('Daemon64:')) {
-      /* INFO: Daemon64 is supported */
+    const tracingState = Tracing.split(': ')[1].split(' ')[0]
+    switch (tracingState) {
+      case '1': monitor_status.innerHTML = translations.page.actions.status.tracing; break;
+      case '2': monitor_status.innerHTML = translations.page.actions.status.stopping; break;
+      case '3': monitor_status.innerHTML = translations.page.actions.status.stopped; break;
+      case '4': monitor_status.innerHTML = translations.page.actions.status.exiting; break;
+      default: monitor_status.innerHTML = translations.page.actions.status.unknown;
+    }
+
+    if (has64BitSupport && Daemon64 && Daemon64.startsWith('Daemon64:')) {
+      hasOffset = true
+
       let daemon64_status = Daemon64.split(': ').slice(1).join(': ')
       let daemon64_info = null
       if (daemon64_status.split(' ')[1]) {
@@ -89,50 +112,32 @@ export function setErrorData(errorLog) {
       /* TODO: add handling for unknown status */
       if (zygote64_injection_status === 'injected') {
         zygote64_status_div.innerHTML = translations.page.home.info.zygote.injected
-      } else {
+      } else if (zygote64_injection_status === 'not injected') {
         zygote64_status_div.innerHTML = translations.page.home.info.zygote.notInjected
 
         zygote64_status = UNEXPECTED_FAIL
-      }
-
-      const [ _u1, _u2, _u3, _u4, Daemon32, Zygote32 ] = catCmd.stdout.split('\n')
-      if (Daemon32 && Daemon32.startsWith('Daemon32:')) {
-        /* INFO: Daemon32 is supported */
-        let daemon32_status = Daemon32.split(': ').slice(1).join(': ')
-        let daemon32_info = null
-        if (daemon32_status.split(' ')[1]) {
-          daemon32_info = daemon32_status.split(' ').slice(1).join(' ')
-          daemon32_status = daemon32_status.split(' ')[0]
-
-          root_impl.innerHTML = daemon32_info.split('Root: ')[1].split(',')[0]
-
-          const modules = daemon32_info.split('Modules: ')[1].split(')')[0].split(', ')
-          if (modules[0] !== 'None') modules_32.push(...modules)
-        }
-
-        const zygote32_injection_status = Zygote32.split(': ')[1]
-
-        if (zygote32_injection_status === 'injected') {
-          zygote32_status_div.innerHTML = translations.page.home.info.zygote.injected
-        } else {
-          zygote32_status_div.innerHTML = translations.page.home.info.zygote.notInjected
-
-          zygote32_status = UNEXPECTED_FAIL
-        }
       } else {
-        /* INFO: This should never happen */
+        zygote64_status_div.innerHTML = translations.page.home.info.zygote.unknown
 
-        zygote32_div.style.display = 'none'
-        daemon32_div.style.display = 'none'
-
-        zygote32_status = UNEXPECTED_FAIL
+        zygote64_status = UNEXPECTED_FAIL
       }
-    } else {
-      /* INFO: Daemon64 is not supported */
+    } else if (has64BitSupport && (!Daemon64 || !Daemon64.startsWith('Daemon64:'))) {
       zygote64_div.style.display = 'none'
-      daemon64_div.style.display = 'none'
 
       zygote64_status = UNEXPECTED_FAIL
+    }
+
+    if (has32BitSupport) {
+      let Daemon32 = null
+      let Zygote32 = null
+
+      if (hasOffset) {
+        Daemon32 = catCmd.stdout.split('\n')[4]
+        Zygote32 = catCmd.stdout.split('\n')[5]
+      } else {
+        Daemon32 = catCmd.stdout.split('\n')[2]
+        Zygote32 = catCmd.stdout.split('\n')[3]
+      }
 
       if (Daemon32 && Daemon32.startsWith('Daemon32:')) {
         /* INFO: Daemon32 is supported */
@@ -143,7 +148,7 @@ export function setErrorData(errorLog) {
           daemon32_status = daemon32_status.split(' ')[0]
 
           root_impl.innerHTML = daemon32_info.split('Root: ')[1].split(',')[0]
-          
+
           const modules = daemon32_info.split('Modules: ')[1].split(')')[0].split(', ')
           if (modules[0] !== 'None') modules_32.push(...modules)
         }
@@ -152,19 +157,21 @@ export function setErrorData(errorLog) {
 
         if (zygote32_injection_status === 'injected') {
           zygote32_status_div.innerHTML = translations.page.home.info.zygote.injected
-        } else {
+        } else if (zygote32_injection_status === 'not injected') {
           zygote32_status_div.innerHTML = translations.page.home.info.zygote.notInjected
+
+          zygote32_status = UNEXPECTED_FAIL
+        } else {
+          zygote32_status_div.innerHTML = translations.page.home.info.zygote.unknown
 
           zygote32_status = UNEXPECTED_FAIL
         }
       } else {
-        /* INFO: This should never happen */
         zygote32_div.style.display = 'none'
-        daemon32_div.style.display = 'none'
 
         zygote32_status = UNEXPECTED_FAIL
       }
-    }      
+    }
   }
 
   if (zygote32_status === EXPECTED && zygote64_status === EXPECTED) {

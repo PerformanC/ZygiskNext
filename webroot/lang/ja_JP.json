@@ -46,21 +46,20 @@
       "notAvaliable": "No modules using Zygisk here.",
       "arch": "アーキテクチャー: "
     },
-    "action": {
+    "actions": {
       "header": "Action",
-      "daemonButton": {
+      "monitorButton": {
         "start": "スタート",
         "stop": "ストップ",
         "pause": "Pause"
       },
-      "monitor": {
-        "32": "Monitor (32 bit)",
-        "64": "Monitor (64 bit)"
-      },
+      "monitor": "Monitor",
       "status": {
-        "unknown": "Unknown",
-        "notWorking": "Not Working",
-        "ok": "Working"
+        "tracing": "Tracing",
+        "stopping": "Stopping",
+        "stopped": "Stopped",
+        "exiting": "Exiting",
+        "unknown": "Unknown"
       }
     },
     "settings": {

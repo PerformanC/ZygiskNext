@@ -1,91 +1,84 @@
 {
-  "langName": "Русский (Россия)",
+  "langName": "Английский (США)",
   "global": {
     "unknown": "Неизвестно"
   },
-  "modal": {
-    "logs": {
-      "header": "Журнал ошибок",
-      "placeholder": "Журнал ошибок пуст!"
-    }
-  },
   "smallPage": {
     "language": {
-      "header": "Выберите ваш язык"
+      "header": "Выберите ваш новый язык"
     },
     "theme": {
-      "header": "Выберите тему",
+      "header": "Выберите свою новую тему",
       "dark": "Темная",
       "light": "Светлая",
-      "system": "Системная тема"
+      "system": "На основе системной темы"
     },
     "errorh": {
       "buttons": {
         "copy": "COPY",
         "clear": "CLEAR ALL LOGS"
       },
-      "header": "Журнал ошибок",
-      "placeholder": "Журнал ошибок пуст!"
+      "header": "Error History",
+      "placeholder": "No error log recorded here!"
     }
   },
   "page": {
     "home": {
       "header": "Главная",
       "status": {
-        "unknown": "Неизвестен",
+        "unknown": "Неизвестно",
         "notWorking": "Не работает",
         "ok": "Работает",
-        "partially": "Работает частично"
+        "partially": "Частично работает"
       },
       "info": {
         "version": "Версия",
-        "root": "Реализация ROOT",
+        "root": "Root реализация",
         "zygote": {
-          "injected": "Инъецирован",
-          "notInjected": "Не инъецирован",
-          "unknown": "Неизвестен"
+          "injected": "Инъецировано",
+          "notInjected": "Не инъецировано",
+          "unknown": "Неизвестно"
         }
       }
     },
     "modules": {
       "header": "Модули",
-      "notAvaliable": "Нет модулей, использующих Zygisk.",
+      "notAvaliable": "Здесь нет модулей, использующих Zygisk.",
       "arch": "Архитектура: "
     },
-    "action": {
+    "actions": {
       "header": "Действие",
-      "daemonButton": {
-        "start": "Старт",
+      "monitorButton": {
+        "start": "Начать",
         "stop": "Стоп",
         "pause": "Пауза"
       },
-      "monitor": {
-        "32": "Контроль (32 bit)",
-        "64": "Контроль (64 bit)"
-      },
+      "monitor": "Мониторинг",
       "status": {
-        "unknown": "Неизвестен",
-        "notWorking": "Не работает",
-        "ok": "Работает"
+        "tracing": "Tracing",
+        "stopping": "Stopping",
+        "stopped": "Stopped",
+        "exiting": "Exiting",
+        "unknown": "Unknown"
       }
     },
     "settings": {
       "header": "Настройки",
       "font": {
-        "header": "Использовать системный шрифт",
-        "description": "Эта опция включает системный шрифт в текущем WebUI. ПРИМЕЧАНИЕ: Может быть несовместим с FlipFont"
+        "header": "Включить системный шрифт",
+        "description": "Эта опция включит системный шрифт в текущем WebUI. \nПРИМЕЧАНИЕ: Может быть несовместимо с FlipFont"
       },
       "theme": {
         "header": "Системная тема",
-        "description": "Использовать системную тему для текущего WebUI"
+        "description": "Выберите вашу системную тему для текущего WebUI"
       },
       "language": {
-        "header": "Выбрать язык",
-        "description": "Выберите ваш язык"
+        "header": "Сменить язык",
+        "description": "Измените на ваш новый язык"
       },
       "logs": {
-        "header": "Журнал ошибок",
-        "description": "Просмотреть журнал ошибок"
+        "header": "История ошибок",
+        "description": "Просмотреть весь журнал ваших ошибок"
       },
       "credits": {
         "module": "Разработчик модуля",

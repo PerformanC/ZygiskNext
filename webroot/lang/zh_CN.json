@@ -46,21 +46,20 @@
       "notAvaliable": "目前没有模块使用Zygisk",
       "arch": "架构: "
     },
-    "action": {
+    "actions": {
       "header": "操作",
-      "daemonButton": {
+      "monitorButton": {
         "start": "启动",
         "stop": "停止",
         "pause": "暂停"
       },
-      "monitor": {
-        "32": "监视器 (32位)",
-        "64": "监视器 (64位)"
-      },
+      "monitor": "监视器",
       "status": {
-        "unknown": "未知",
-        "notWorking": "未运行",
-        "ok": "运行中"
+        "tracing": "Tracing",
+        "stopping": "Stopping",
+        "stopped": "Stopped",
+        "exiting": "Exiting",
+        "unknown": "Unknown"
       }
     },
     "settings": {

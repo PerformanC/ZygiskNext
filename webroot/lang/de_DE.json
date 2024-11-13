@@ -18,8 +18,8 @@
         "copy": "COPY",
         "clear": "CLEAR ALL LOGS"
       },
-      "header": "Fehlerhistorie",
-      "placeholder": "Es wurde kein Fehler festgestellt!"
+      "header": "Error History",
+      "placeholder": "No error log recorded here!"
     }
   },
   "page": {
@@ -46,21 +46,20 @@
       "notAvaliable": "Kein Modul nutzt Zygisk.",
       "arch": "Architektur: "
     },
-    "action": {
+    "actions": {
       "header": "Aktion",
-      "daemonButton": {
+      "monitorButton": {
         "start": "Start",
         "stop": "Stopp",
         "pause": "Pause"
       },
-      "monitor": {
-        "32": "Monitor (32 Bit)",
-        "64": "Monitor (64 Bit)"
-      },
+      "monitor": "Monitor",
       "status": {
-        "unknown": "Unbekannt",
-        "notWorking": "Funktioniert nicht",
-        "ok": "Funktioniert"
+        "tracing": "Tracing",
+        "stopping": "Stopping",
+        "stopped": "Stopped",
+        "exiting": "Exiting",
+        "unknown": "Unknown"
       }
     },
     "settings": {
