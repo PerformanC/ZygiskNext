@@ -55,11 +55,11 @@
       },
       "monitor": "监视器",
       "status": {
-        "tracing": "Tracing",
-        "stopping": "Stopping",
-        "stopped": "Stopped",
-        "exiting": "Exiting",
-        "unknown": "Unknown"
+        "tracing": "追踪中",
+        "stopping": "正在停止",
+        "stopped": "已停止",
+        "exiting": "正在退出",
+        "unknown": "未知"
       }
     },
     "settings": {
