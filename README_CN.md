@@ -11,9 +11,9 @@ ReZygisk 是 Zygisk 的另一个独立实现，从 Zygisk Next 分叉而来，�
 >
 > 您可以从 [Actions](https://github.com/PerformanC/ReZygisk/actions) 页面下载自动构建包，但要注意自负风险。使用不稳定的版本时，设备可能会陷入启动循环(Bootloop)。
 
-## 为什么要ReZygisk？
+## 为什么要选择 ReZygisk？
 
-最新版本的 Zygisk Next 并不开源，仅其核心开发者有权查阅全部源代码。这不仅阻止了其他开发者贡献代码，还阻止了他们对项目代码进行审计。Zygisk Next 是一个以超级用户(root)权限运行的模块，可以访问整个系统，闭源后存在重大安全隐患。
+最新版本的 Zygisk Next 并不开源，仅其核心开发者有权查阅全部源代码。这不仅阻止了其他开发者贡献代码，还阻止了他人对项目代码进行审计。Zygisk Next 是一个以超级用户(root)权限运行的模块，可以访问整个系统，闭源后存在重大安全隐患。
 
 Zygisk Next 的开发者们在Android社区享有盛誉，备受信任。但这并不意味着他们的项目就一定没有任何恶意代码和漏洞。我们(PerformanC)理解他们出于某些原因不愿保持开源，但我们坚信，开源是更好的选择。
 
