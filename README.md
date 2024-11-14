@@ -1,6 +1,6 @@
 # ReZygisk
 
-[中文](https://github.com/PerformanC/ReZygisk/blob/main/README_CN.md)
+[简体中文]([READMEs/README_CN.md)|[繁體中文](/READMEs/README_zh-TW.md)
 
 ReZygisk is a fork of Zygisk Next, a standalone implementation of Zygisk, providing Zygisk API support for KernelSU, Magisk (besides built-in), and APatch (Work In Progress).
 
