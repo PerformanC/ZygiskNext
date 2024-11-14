@@ -9,6 +9,7 @@
 - **zh_CN** by [@Meltartica](https://github.com/Meltartica) & [@SheepChef](https://github.com/SheepChef)
 - **zh_TW** by [@Meltartica](https://github.com/Meltartica)
 - **de_DE** by [@Blazzycrafer](https://github.com/Blazzycrafter)
+- **id_ID** by [@bpanca05](https://github.com/bpanca05)
 
 > [!NOTE]
 > Want to add your translation? Go to [Crowdin](https://crowdin.com/project/rezygisk) and translate!
