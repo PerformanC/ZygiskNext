@@ -42,7 +42,7 @@ ReZygisk 是 Zygisk Next 的一個分支，這是一個獨立實現的 Zygisk，
 
 ## 翻譯
 
-目前我們尚未與其他平台整合進行翻譯，但您可以為 [add/webui](https://github.com/PerformanC/ReZygisk/tree/add/webui) 分支做出貢獻。請別忘了在 [TRANSLATOR.md](https://github.com/PerformanC/ReZygisk/blob/add/webui/TRANSLATOR.md) 中包含您的 GitHub 個人檔案，讓大家能夠看到您的貢獻。
+目前我們尚未與其他平台整合進行翻譯，但您可以為 [add/new-webui](https://github.com/PerformanC/ReZygisk/tree/add/new-webui)分支做出貢獻。請別忘了在 [TRANSLATOR.md](https://github.com/PerformanC/ReZygisk/blob/add/new-webui/TRANSLATOR.md) 中包含您的 GitHub 個人檔案，讓大家能夠看到您的貢獻。
 
 ## 支援
 如有關於 ReZygisk 或其他 PerformanC 專案的任何問題，歡迎加入以下任一頻道：
