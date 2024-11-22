@@ -45,20 +45,29 @@ Zygisk Nextの開発者はAndroid Communityにて有名かつ信用されてい�
 
 ## 翻訳
 
-As of now, we don't have integration with another platform for translations but you may contribute to the [add/new-webui](https://github.com/PerformanC/ReZygisk/tree/add/new-webui) branch. Please don't forget to include your GitHub profile in [TRANSLATOR.md](https://github.com/PerformanC/ReZygisk/blob/add/new-webui/TRANSLATOR.md) so that people can see your contribution.
+現状では、翻訳を他のプラットフォーム上で展開することはしていません。
+
+が、[add/new-webui](https://github.com/PerformanC/ReZygisk/tree/add/new-webui) ブランチにて翻訳作業に参加していただくことができます。
+
+他の開発者さんたちがあなたの貢献を確認できるように、 [TRANSLATOR.md](https://github.com/PerformanC/ReZygisk/blob/add/new-webui/TRANSLATOR.md) にあなたのプロフィールを追加することを忘れないでください！
 
 ## サポート
 For any question related to ReZygisk or other PerformanC projects, feel free to join any of the following channels below:
-ReZygisk/他のPerformanCのプロジェクトに対する質問がある場合は以下のリストのどれかから
+ReZygisk/他のPerformanCのプロジェクトに対する質問がある場合は、以下のどれかに参加してください！
 
-- Discord Channel: [PerformanC](https://discord.gg/uPveNfTuCJ)
-- ReZygisk Telegram Channel: [@rezygiskchat](https://t.me/rezygiskchat)
-- PerformanC Telegram Channel: [@performancorg](https://t.me/performancorg)
+- Discord チャンネル: [PerformanC](https://discord.gg/uPveNfTuCJ)
+- ReZygisk Telegram チャンネル: [@rezygiskchat](https://t.me/rezygiskchat)
+- PerformanC Telegram チャンネル: [@performancorg](https://t.me/performancorg)
 
-## Contribution
+## 貢献
 
-It is mandatory to follow PerformanC's [Contribution Guidelines](https://github.com/PerformanC/contributing) to contribute to ReZygisk. Following its Security Policy, Code of Conduct, and syntax standard.
+貢献をしたい場合、PerformanCの[Contribution Guidelines](https://github.com/PerformanC/contributing)に従うことが必要になります。
 
-## License
+セキュリティーポリシー、行動規範、シンタックススタンダードを採用してください。
 
-ReZygisk is licensed majoritaly under GPL, by Dr-TSNG, but also AGPL 3.0, by The PerformanC Organization, for re-written code. You can read more about it on [Open Source Initiative](https://opensource.org/licenses/AGPL-3.0).
+## ライセンス
+
+ReZygiskは基本的にDr-TSNGによるGPLライセンス下にてライセンスされています。
+
+ただし、書き直しされたコードに関してはPerformanCによるAGPL3.0ライセンスにてライセンスされています。
+詳細については [Open Source Initiative](https://opensource.org/licenses/AGPL-3.0) を参照してください。
