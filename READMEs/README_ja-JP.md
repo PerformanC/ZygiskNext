@@ -52,7 +52,6 @@ Zygisk Nextの開発者はAndroid Communityにて有名かつ信用されてい�
 他の開発者さんたちがあなたの貢献を確認できるように、 [TRANSLATOR.md](https://github.com/PerformanC/ReZygisk/blob/add/new-webui/TRANSLATOR.md) にあなたのプロフィールを追加することを忘れないでください！
 
 ## サポート
-For any question related to ReZygisk or other PerformanC projects, feel free to join any of the following channels below:
 ReZygisk/他のPerformanCのプロジェクトに対する質問がある場合は、以下のどれかに参加してください！
 
 - Discord チャンネル: [PerformanC](https://discord.gg/uPveNfTuCJ)
