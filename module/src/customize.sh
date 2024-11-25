@@ -104,7 +104,6 @@ extract "$ZIPFILE" 'module.prop'     "$MODPATH"
 extract "$ZIPFILE" 'post-fs-data.sh' "$MODPATH"
 extract "$ZIPFILE" 'service.sh'      "$MODPATH"
 extract "$ZIPFILE" 'uninstall.sh'    "$MODPATH"
-extract "$ZIPFILE" 'mazoku'          "$MODPATH"
 mv "$TMPDIR/sepolicy.rule" "$MODPATH"
 
 mkdir "$MODPATH/bin"
@@ -125,9 +124,6 @@ if [ "$ARCH" = "x86" ] || [ "$ARCH" = "x64" ]; then
   extract "$ZIPFILE" 'lib/x86_64/libzygisk.so' "$MODPATH/lib64" true
   extract "$ZIPFILE" 'lib/x86_64/libzygisk_ptrace.so' "$MODPATH/bin" true
   mv "$MODPATH/bin/libzygisk_ptrace.so" "$MODPATH/bin/zygisk-ptrace64"
-
-  extract "$ZIPFILE" 'machikado.x86' "$MODPATH" true
-  mv "$MODPATH/machikado.x86" "$MODPATH/machikado"
 else
   ui_print "- Extracting arm libraries"
   extract "$ZIPFILE" 'bin/armeabi-v7a/zygiskd' "$MODPATH/bin" true
@@ -142,9 +138,6 @@ else
   extract "$ZIPFILE" 'lib/arm64-v8a/libzygisk.so' "$MODPATH/lib64" true
   extract "$ZIPFILE" 'lib/arm64-v8a/libzygisk_ptrace.so' "$MODPATH/bin" true
   mv "$MODPATH/bin/libzygisk_ptrace.so" "$MODPATH/bin/zygisk-ptrace64"
-
-  extract "$ZIPFILE" 'machikado.arm' "$MODPATH" true
-  mv "$MODPATH/machikado.arm" "$MODPATH/machikado"
 fi
 
 ui_print "- Setting permissions"
