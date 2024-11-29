@@ -582,13 +582,7 @@ void ZygiskContext::run_modules_post() {
         m.tryUnload();
     }
 
-    // Remove from SoList to avoid detection
-    bool solist_res = SoList::Initialize();
-    if (!solist_res) {
-        LOGE("Failed to initialize SoList");
-    } else {
-        SoList::NullifySoName("jit-cache");
-    }
+    SoList::DropSoPath("jit-cache");
 
     // Remap as well to avoid checking of /memfd:jit-cache
     for (auto &info : lsplt::MapInfo::Scan()) {
