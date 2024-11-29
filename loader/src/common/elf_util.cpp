@@ -179,11 +179,39 @@ ElfW(Addr) ElfImg::LinearLookup(std::string_view name) const {
             }
         }
     }
+
     if (auto i = symtabs_.find(name); i != symtabs_.end()) {
         return i->second->st_value;
     } else {
         return 0;
     }
+}
+
+std::string_view ElfImg::LinearLookupByPrefix(std::string_view name) const {
+    if (symtabs_.empty()) {
+        symtabs_.reserve(symtab_count);
+        if (symtab_start != nullptr && symstr_offset_for_symtab != 0) {
+            for (ElfW(Off) i = 0; i < symtab_count; i++) {
+                unsigned int st_type = ELF_ST_TYPE(symtab_start[i].st_info);
+                const char *st_name = offsetOf<const char *>(header, symstr_offset_for_symtab +
+                                                                     symtab_start[i].st_name);
+                if ((st_type == STT_FUNC || st_type == STT_OBJECT) && symtab_start[i].st_size) {
+                    symtabs_.emplace(st_name, &symtab_start[i]);
+                }
+            }
+        }
+    }
+
+    auto size = name.size();
+    for (auto symtab : symtabs_) {
+        if (symtab.first.size() < size) continue;
+
+        if (symtab.first.substr(0, size) == name) {
+            return symtab.first;
+        }
+    }
+
+    return "";
 }
 
 
