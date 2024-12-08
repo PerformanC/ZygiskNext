@@ -117,8 +117,8 @@ struct Status {
   bool zygote_injected = false;
   bool daemon_running = false;
   pid_t daemon_pid = -1;
-  char *daemon_info;
-  char *daemon_error_info;
+  char *daemon_info = NULL;
+  char *daemon_error_info = NULL;
 };
 
 Status status64;

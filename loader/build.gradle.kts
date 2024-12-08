@@ -49,6 +49,7 @@ android {
 
     externalNativeBuild.cmake {
         path("src/CMakeLists.txt")
+        buildStagingDirectory = layout.buildDirectory.get().asFile
     }
 
     defaultConfig {

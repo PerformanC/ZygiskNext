@@ -3,6 +3,8 @@ project("loader")
 
 find_package(cxx REQUIRED CONFIG)
 
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+
 add_definitions(-DZKSU_VERSION=\"${ZKSU_VERSION}\")
 
 aux_source_directory(common COMMON_SRC_LIST)

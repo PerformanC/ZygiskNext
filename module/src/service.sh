@@ -15,7 +15,7 @@ if [ "$(which magisk)" ]; then
       if [ -f "$file/service.sh" ]; then
         cd "$file"
         log -p i -t "zygisk-sh" "Manually trigger service.sh for $file"
-        sh "$(realpath ./service.sh)"
+        sh "$(realpath ./service.sh)" &
         cd "$MODDIR"
       fi
     fi

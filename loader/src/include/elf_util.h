@@ -48,6 +48,10 @@ namespace SandHook {
             }
         }
 
+        std::string_view findSymbolNameByPrefix(std::string_view prefix) const {
+            return LinearLookupByPrefix(prefix);
+        }
+
         template<typename T>
         constexpr T getSymbAddress(std::string_view name) const {
             return reinterpret_cast<T>(getSymbAddress(name));
@@ -71,6 +75,8 @@ namespace SandHook {
         ElfW(Addr) GnuLookup(std::string_view name, uint32_t hash) const;
 
         ElfW(Addr) LinearLookup(std::string_view name) const;
+
+        std::string_view LinearLookupByPrefix(std::string_view name) const;
 
         constexpr static uint32_t ElfHash(std::string_view name);
 

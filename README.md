@@ -1,6 +1,6 @@
 # ReZygisk
 
-[中文](https://github.com/PerformanC/ReZygisk/blob/main/README_CN.md)
+[简体中文](/READMEs/README_zh-CN.md)|[繁體中文](/READMEs/README_zh-TW.md)
 
 ReZygisk is a fork of Zygisk Next, a standalone implementation of Zygisk, providing Zygisk API support for KernelSU, Magisk (besides built-in), and APatch (Work In Progress).
 
@@ -25,26 +25,7 @@ The Zygisk Next developers are famous and trusted in the Android community, howe
 
 | Tool            | Description                            |
 |-----------------|----------------------------------------|
-| `rustc`         | The Rust compiler                      |
 | `Android NDK`   | Native Development Kit for Android     |
-
-### Rust Dependencies
-
-| Dependency       | Description                                                   |
-|------------------|---------------------------------------------------------------|
-| `android_logger` | Logger for Android platform                                   |
-| `anyhow`         | Error handling library                                        |
-| `bitflags`       | Macro to generate structures for bitwise operations           |
-| `const_format`   | Compile-time string formatting                                |
-| `futures`        | Abstractions for asynchronous programming                     |
-| `konst`          | Compile-time constant evaluation                              |
-| `lazy_static`    | Macro for declaring lazily evaluated static variables         |
-| `libc`           | FFI bindings to native C libraries                            |
-| `log`            | Logging facade                                                |
-| `memfd`          | Memory file descriptor utilities                              |
-| `num_enum`       | Derive macros to convert between numbers and enums            |
-| `passfd`         | Passing file descriptors over Unix sockets                    |
-| `proc-maps`      | Parse and analyze process memory maps                         |
 
 ### C++ Dependencies
 
@@ -62,7 +43,7 @@ There are currently no available stable releases. (Coming Soon)
 
 ## Translation
 
-As of now, we don't have integration with another platform for translations but you may contribute to the [add/webui](https://github.com/PerformanC/ReZygisk/tree/add/webui) branch. Please don't forget to include your GitHub profile in [TRANSLATOR.md](https://github.com/PerformanC/ReZygisk/blob/add/webui/TRANSLATOR.md) so that people can see your contribution.
+As of now, we don't have integration with another platform for translations but you may contribute to the [add/new-webui](https://github.com/PerformanC/ReZygisk/tree/add/new-webui) branch. Please don't forget to include your GitHub profile in [TRANSLATOR.md](https://github.com/PerformanC/ReZygisk/blob/add/new-webui/TRANSLATOR.md) so that people can see your contribution.
 
 ## Support
 For any question related to ReZygisk or other PerformanC projects, feel free to join any of the following channels below:

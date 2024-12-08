@@ -394,7 +394,7 @@ void zygiskd_start(char *restrict argv[]) {
     size_t msg_length = strlen("Root: , Modules: ") + strlen(impl_name) + module_list_len + 1;
 
     struct MsgHead *msg = malloc(sizeof(struct MsgHead) + msg_length);
-    msg->length = snprintf(msg->data, msg_length, "Root: %s, Modules: %s", impl_name, module_list);
+    msg->length = snprintf(msg->data, msg_length, "Root: %s, Modules: %s", impl_name, module_list) + 1;
     msg->cmd = DAEMON_SET_INFO;
 
     unix_datagram_sendto(CONTROLLER_SOCKET, (void *)msg, sizeof(struct MsgHead) + msg->length);
