@@ -11,7 +11,7 @@
 - **vi_VN** by [@RainyXeon](https://github.com/RainyXeon)
 - **zh_CN** by [@Meltartica](https://github.com/Meltartica) & [@SheepChef](https://github.com/SheepChef)
 - **zh_TW** by [@Meltartica](https://github.com/Meltartica)
-- **ua_UA** by [@Kittyskj](https://github.com/Kittyskj)
+- **uk_UA** by [@Kittyskj](https://github.com/Kittyskj)
 
 > [!NOTE]
 > Want to add your translation? Go to [Crowdin](https://crowdin.com/project/rezygisk) and translate!
