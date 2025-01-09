@@ -1,6 +1,6 @@
 # ReZygisk
 
-[English](https://github.com/PerformanC/ReZygisk/blob/main/README.md)
+[English](https://github.com/PerformanC/ReZygisk)
 
 ReZygisk adalah turunan dari Zygisk Next, sebuah implementasi mandiri Zygisk, yang mendukung API Zygisk untuk KernelSU, Magisk (selain versi bawaan), dan APatch (dalam tahap pengembangan).
 
