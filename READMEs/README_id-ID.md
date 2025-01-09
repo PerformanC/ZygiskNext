@@ -6,7 +6,9 @@ ReZygisk adalah turunan dari Zygisk Next, sebuah implementasi mandiri Zygisk, ya
 
 Proyek ini bertujuan untuk memodernisasi dan menulis ulang basis kode ke dalam bahasa pemorgraman C (dari C++ dan Rust), memungkinkan implementasi API Zygisk yang lebih efisien dan cepat dengan lisensi yang lebih permisif.
 
-> [!CATATAN]
+> [!NOTE]
+> [CATATAN]
+> 
 > Modul/turunan ini sedang dalam tahap pengembangan. gunakan hanya file .zip dari halaman Rilis.
 >
 > Anda dapat menginstal file .zip dari halaman [Actions](https://github.com/PerformanC/ReZygisk/actions), namun instalan ini sepenuhnya menjadi tanggung jawab Anda karena perangkat dapat mengalami bootloop.
