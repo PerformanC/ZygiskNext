@@ -23,15 +23,15 @@ Zygisk Next geliştiricileri, Android topluluğunda tanınmış ve güvenilir ki
 
 ## Bağımlılıklar
 
-| Araç            | Açıklama                             |
+| Araç             | Açıklama                             |
 |------------------|--------------------------------------|
-| `Android NDK`    | Android için Yerel Geliştirme Kiti  |
+| `Android NDK`    | Android için Yerel Geliştirme Kiti   |
 
 ### C++ Bağımlılıkları
 
 | Bağımlılık | Açıklama                        |
 |------------|---------------------------------|
-| `lsplt`    | Android için Basit PLT Hook    |
+| `lsplt`    | Android için Basit PLT Hook     |
 
 ## Kullanım
 
