@@ -187,7 +187,7 @@ ElfW(Addr) ElfImg::LinearLookup(std::string_view name) const {
     }
 }
 
-std::string_view ElfImg::LinearLookupByPrefix(std::string_view name) const {
+ElfW(Addr) ElfImg::LinearLookupByPrefix(std::string_view name) const {
     if (symtabs_.empty()) {
         symtabs_.reserve(symtab_count);
         if (symtab_start != nullptr && symstr_offset_for_symtab != 0) {
@@ -207,11 +207,11 @@ std::string_view ElfImg::LinearLookupByPrefix(std::string_view name) const {
         if (symtab.first.size() < size) continue;
 
         if (symtab.first.substr(0, size) == name) {
-            return symtab.first;
+            return symtab.second->st_value;
         }
     }
 
-    return "";
+    return 0;
 }
 
 

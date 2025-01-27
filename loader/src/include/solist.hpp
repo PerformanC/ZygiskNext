@@ -21,7 +21,6 @@ namespace SoList  {
       #endif
 
       inline static const char *(*get_realpath_sym)(SoInfo *) = NULL;
-      inline static const char *(*get_soname_sym)(SoInfo *) = NULL;
       inline static void (*soinfo_free)(SoInfo *) = NULL;
 
       inline SoInfo *get_next() {
@@ -36,12 +35,6 @@ namespace SoList  {
         if (get_realpath_sym) return get_realpath_sym(this);
 
         return ((std::string *) ((uintptr_t) this + solist_realpath_offset))->c_str();
-      }
-
-      inline const char *get_name() {
-        if (get_soname_sym) return get_soname_sym(this);
-
-        return ((std::string *) ((uintptr_t) this + solist_realpath_offset - sizeof(void *)))->c_str();
       }
 
       void set_next(SoInfo *si) {
@@ -110,6 +103,13 @@ namespace SoList  {
     return addr == NULL ? NULL : *addr;
   }
 
+  template<typename T>
+  inline T *getStaticPointerByPrefix(const SandHook::ElfImg &linker, const char *name) {
+    auto *addr = reinterpret_cast<T **>(linker.getSymbAddressByPrefix(name));
+
+    return addr == NULL ? NULL : *addr;
+  }
+
   static bool DropSoPath(const char* target_path) {
     bool path_found = false;
     if (solist == NULL && !Initialize()) {
@@ -117,9 +117,9 @@ namespace SoList  {
       return path_found;
     }
     for (auto iter = solist; iter; iter = iter->get_next()) {
-      if (iter->get_name() && iter->get_path() && strstr(iter->get_path(), target_path)) {
+      if (iter->get_path() && strstr(iter->get_path(), target_path)) {
         SoList::ProtectedDataGuard guard;
-        LOGI("dropping solist record for %s loaded at %s with size %zu", iter->get_name(), iter->get_path(), iter->get_size());
+        LOGV("dropping solist record loaded at %s with size %zu", iter->get_path(), iter->get_size());
         if (iter->get_size() > 0) {
             iter->set_size(0);
             SoInfo::soinfo_free(iter);
@@ -136,7 +136,7 @@ namespace SoList  {
       return;
     }
     if (g_module_load_counter == NULL || g_module_unload_counter == NULL) {
-      LOGI("g_module counters not defined, skip reseting them");
+      LOGD("g_module counters not defined, skip reseting them");
       return;
     }
     auto loaded_modules = *g_module_load_counter;
@@ -163,57 +163,26 @@ namespace SoList  {
 
         See #63 for more information.
     */
-
-    std::string_view solist_sym_name = linker.findSymbolNameByPrefix("__dl__ZL6solist");
-    if (solist_sym_name.empty()) return false;
-    LOGD("found symbol name %s", solist_sym_name.data());
-
-    std::string_view soinfo_free_name = linker.findSymbolNameByPrefix("__dl__ZL11soinfo_freeP6soinfo");
-    if (soinfo_free_name.empty()) return false;
-    LOGD("found symbol name %s", soinfo_free_name.data());
-
-    /* INFO: The size isn't a magic number, it's the size for the string: .llvm.7690929523238822858 */
-    char llvm_sufix[25 + 1];
-
-    if (solist_sym_name.length() != strlen("__dl__ZL6solist")) {
-      strncpy(llvm_sufix, solist_sym_name.data() + strlen("__dl__ZL6solist"), sizeof(llvm_sufix));
-    } else {
-      llvm_sufix[0] = '\0';
-    }
-
-    solist = getStaticPointer<SoInfo>(linker, solist_sym_name.data());
+    solist = getStaticPointerByPrefix<SoInfo>(linker, "__dl__ZL6solist");
     if (solist == NULL) return false;
     LOGD("found symbol solist");
 
-    char somain_sym_name[sizeof("__dl__ZL6somain") + sizeof(llvm_sufix)];
-    snprintf(somain_sym_name, sizeof(somain_sym_name), "__dl__ZL6somain%s", llvm_sufix);
-
-    char sonext_sym_name[sizeof("__dl__ZL6sonext") + sizeof(llvm_sufix)];
-    snprintf(sonext_sym_name, sizeof(somain_sym_name), "__dl__ZL6sonext%s", llvm_sufix);
-
-    char vdso_sym_name[sizeof("__dl__ZL4vdso") + sizeof(llvm_sufix)];
-    snprintf(vdso_sym_name, sizeof(vdso_sym_name), "__dl__ZL4vdso%s", llvm_sufix);
-
-    somain = getStaticPointer<SoInfo>(linker, somain_sym_name);
+    somain = getStaticPointerByPrefix<SoInfo>(linker, "__dl__ZL6somain");
     if (somain == NULL) return false;
     LOGD("found symbol somain");
 
-    sonext = linker.getSymbAddress<SoInfo **>(sonext_sym_name);
+    sonext = linker.getSymbAddressByPrefix<SoInfo **>("__dl__ZL6sonext");
     if (sonext == NULL) return false;
     LOGD("found symbol sonext");
 
-    SoInfo *vdso = getStaticPointer<SoInfo>(linker, vdso_sym_name);
+    SoInfo *vdso = getStaticPointerByPrefix<SoInfo>(linker, "__dl__ZL4vdso");
     if (vdso != NULL) LOGD("found symbol vdso");
 
     SoInfo::get_realpath_sym = reinterpret_cast<decltype(SoInfo::get_realpath_sym)>(linker.getSymbAddress("__dl__ZNK6soinfo12get_realpathEv"));
     if (SoInfo::get_realpath_sym == NULL) return false;
     LOGD("found symbol get_realpath_sym");
 
-    SoInfo::get_soname_sym = reinterpret_cast<decltype(SoInfo::get_soname_sym)>(linker.getSymbAddress("__dl__ZNK6soinfo10get_sonameEv"));
-    if (SoInfo::get_soname_sym == NULL) return false;
-    LOGD("found symbol get_soname_sym");
-
-    SoInfo::soinfo_free = reinterpret_cast<decltype(SoInfo::soinfo_free)>(linker.getSymbAddress(soinfo_free_name));
+    SoInfo::soinfo_free = reinterpret_cast<decltype(SoInfo::soinfo_free)>(linker.getSymbAddressByPrefix("__dl__ZL11soinfo_freeP6soinfo"));
     if (SoInfo::soinfo_free == NULL) return false;
     LOGD("found symbol soinfo_free");
 

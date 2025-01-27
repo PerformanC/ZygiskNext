@@ -48,13 +48,23 @@ namespace SandHook {
             }
         }
 
-        std::string_view findSymbolNameByPrefix(std::string_view prefix) const {
-            return LinearLookupByPrefix(prefix);
+        constexpr ElfW(Addr) getSymbAddressByPrefix(std::string_view prefix) const {
+            ElfW(Addr) offset = LinearLookupByPrefix(prefix);
+            if (offset > 0 && base != nullptr) {
+                return static_cast<ElfW(Addr)>((uintptr_t) base + offset - bias);
+            } else {
+                return 0;
+            }
         }
 
         template<typename T>
         constexpr T getSymbAddress(std::string_view name) const {
             return reinterpret_cast<T>(getSymbAddress(name));
+        }
+
+        template<typename T>
+        constexpr T getSymbAddressByPrefix(std::string_view prefix) const {
+            return reinterpret_cast<T>(getSymbAddressByPrefix(prefix));
         }
 
         bool isValid() const {
@@ -76,7 +86,7 @@ namespace SandHook {
 
         ElfW(Addr) LinearLookup(std::string_view name) const;
 
-        std::string_view LinearLookupByPrefix(std::string_view name) const;
+        ElfW(Addr) LinearLookupByPrefix(std::string_view name) const;
 
         constexpr static uint32_t ElfHash(std::string_view name);
 
